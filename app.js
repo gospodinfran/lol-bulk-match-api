@@ -58,40 +58,40 @@ readCSVToDictionary(csvFile)
             const match_detail_url = `https://europe.api.riotgames.com/lol/match/v5/matches/${match_id}?api_key=${API_KEY}`;
             const matchDetails = await fetchData(match_detail_url);
 
-                        let champions = matchDetails.info.participants.map((participant) => participant.championId);
+            let champions = matchDetails.info.participants.map((participant) => participant.championId);
 
-                        for (let i = 0; i < champions.length; i++) {
-                          const championId = champions[i].toString();
-                          if (idToName.hasOwnProperty(championId)) {
-                            champions[i] = idToName[championId];
-                          } else {
-                            console.warn(`Champion name not found for ID: ${championId}`);
-                          }
-                        }
-            
-                        const game_i = [{ matchId: match_id, championId: champions }];
-                        await csvWriter2.writeRecords(game_i);
-            
-                        // Sleep to avoid hitting the Riot API rate limit
-                        await new Promise((resolve) => setTimeout(resolve, 1200));
-                      }
-                    }
-            
-                    console.log('CSV file has been written successfully.');
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                  });
-              })
-              .catch((error) => {
-                console.error('Error:', error);
-              });
-            
-            const fetchData = async (url) => {
-              const response = await fetch(url);
-              if (!response.ok) {
-                throw new Error(`Error fetching data from ${url}: ${response.status} ${response.statusText}`);
+            for (let i = 0; i < champions.length; i++) {
+              const championId = champions[i].toString();
+              if (idToName.hasOwnProperty(championId)) {
+                champions[i] = idToName[championId];
+              } else {
+                console.warn(`Champion name not found for ID: ${championId}`);
               }
-              return response.json();
-            };
+            }
+
+            const game_i = [{ matchId: match_id, championId: champions }];
+            await csvWriter2.writeRecords(game_i);
+
+            // Sleep to avoid hitting the Riot API rate limit
+            await new Promise((resolve) => setTimeout(resolve, 1200));
+          }
+        }
+            
+            console.log('CSV file has been written successfully.');
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    
+    const fetchData = async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error fetching data from ${url}: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    };
             
