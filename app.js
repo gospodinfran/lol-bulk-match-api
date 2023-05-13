@@ -43,7 +43,7 @@ readCSVToDictionary(csvFile)
     fetchData(league_url)
       .then(async (data) => {
         let summoners = data.entries;
-        summoners = summoners.slice(0, 2);
+        summoners = summoners.slice(0, 100);
 
         const summoner_url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/{summonerId}?api_key=${API_KEY}`;
 
