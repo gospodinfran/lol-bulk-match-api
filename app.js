@@ -65,7 +65,7 @@ readCSVToDictionary(csvFile)
               if (idToName.hasOwnProperty(championId)) {
                 champions[i] = idToName[championId];
               } else {
-                console.warn(`Champion name not found for ID: ${championId}`);
+                console.warn(`Champ ID: ${championId} not found`);
               }
             }
 
@@ -77,7 +77,7 @@ readCSVToDictionary(csvFile)
           }
         }
             
-            console.log('CSV file has been written successfully.');
+            console.log('Wrote to CSV.');
           })
           .catch((error) => {
             console.error(error);
